@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    Inertia.init(this.initialPage, (page, shouldUpdate) =>
+    Inertia.init(this.initialPage, (page, shouldUpdate = () => true) =>
       Promise.resolve(this.resolveComponent(page.component)).then(instance => {
         if (shouldUpdate()) {
           this.page.instance = instance
