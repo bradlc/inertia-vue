@@ -28,10 +28,14 @@ export default {
     }
   },
   created() {
-    Inertia.init(this.initialPage, page =>
+    Inertia.init(this.initialPage, (page, shouldUpdate) =>
       Promise.resolve(this.resolveComponent(page.component)).then(instance => {
-        this.page.instance = instance
-        this.page.props = page.props
+        if (shouldUpdate()) {
+          this.page.instance = instance
+          this.page.props = page.props
+          return true
+        }
+        return false
       })
     )
   },
